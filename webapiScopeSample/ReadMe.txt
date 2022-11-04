@@ -1,0 +1,1 @@
+﻿docker exec -it redis-cache-container redis-cli
