@@ -29,8 +29,7 @@ namespace webapiScopeSample
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IWeatherProvider, WeatherProvider>();
-            
+                        
             services.AddTransient<ITransientService, OperationService>();
             services.AddScoped<IScopedService, OperationService>();
             services.AddSingleton<ISingletonService, OperationService>();
