@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,16 +17,19 @@ namespace webapiScopeSample
     public class ExceptionMiddleware
     {
         private RequestDelegate _next;
+        private readonly ILogger<ExceptionMiddleware> _logger;
 
-        public ExceptionMiddleware(RequestDelegate next)
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext httpContext)
         {
             try
             {
+                _logger.LogInformation("Exception caught in middleware");
                 //await httpContext.Response.WriteAsync("Custom Middle ware\n");
                 await _next(httpContext);
             }
@@ -44,7 +48,7 @@ namespace webapiScopeSample
 
                     case NotFoundException e:
                         // not found error
-                        response.StatusCode = (int)HttpStatusCode.NotFound;                        
+                        response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
 
                     default:
