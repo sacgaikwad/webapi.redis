@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using webapiScopeSample.Exceptions;
 using webapiScopeSample.interfaces;
+using webapiScopeSample.models;
 
 namespace webapiScopeSample.Controllers
 {
@@ -26,13 +27,25 @@ namespace webapiScopeSample.Controllers
         [HttpGet]
         public async Task<string> Get()
         {
-            string data = await _datastoreProvider.GetCache("weatherModel");
+            string data = await _datastoreProvider.GetCache("weathermodel");
 
             if (data == null)
             {
                 throw new NotFoundException("No data found");
             }
             return data;
+        }
+
+        [HttpPost]
+        public async Task<bool> Add(WeatherModel weatherModel)
+        {
+            bool added = await _datastoreProvider.SetCache("weathermodel", weatherModel);
+
+            if (added)
+            {
+                throw new NotFoundException("No data found");
+            }
+            return added;
         }
     }
 }
