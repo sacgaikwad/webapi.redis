@@ -22,7 +22,6 @@ namespace webapiScopeSample.implementation
         public async Task<string> GetCache(string key)
         {
             string str = await _distributedCache.GetStringAsync(key);
-
             if (str == null)
             {
                 return null;
