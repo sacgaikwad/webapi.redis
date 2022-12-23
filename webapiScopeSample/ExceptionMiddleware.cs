@@ -56,6 +56,7 @@ namespace webapiScopeSample
                         response.StatusCode = (int)HttpStatusCode.InternalServerError;
                         break;
                 }
+                _logger.LogInformation(error.StackTrace);
                 var result = JsonSerializer.Serialize(responseModel);
                 await response.WriteAsync(result);
             }

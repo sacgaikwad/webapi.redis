@@ -36,7 +36,7 @@ namespace webapiScopeSample
 
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = "localhost:6379";
+                options.Configuration = "redis-cache-container:6379";
             });
 
             services.AddScoped<IDatastoreProvider, RedisDatastore>();
